@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
-import android.widget.TextView
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
 import com.vk.api.sdk.auth.VKAccessToken
@@ -16,7 +15,7 @@ import com.vk.api.sdk.exceptions.VKApiExecutionException
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 import android.graphics.drawable.Drawable
-import android.widget.ImageView
+import android.widget.*
 import com.squareup.picasso.Picasso
 import java.io.InputStream
 import java.net.URL
@@ -26,15 +25,26 @@ class MainActivity : AppCompatActivity() {
     private lateinit var token: VKAccessToken
     private lateinit var avatarView: ImageView
     private lateinit var fullNameView: TextView
+    private lateinit var friendsView: ListView
+    private lateinit var adapter: ArrayAdapter<String>
+    private var friends: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        avatarView = findViewById(R.id.avatar)
-        fullNameView = findViewById(R.id.fullName)
+        initFields()
 
         VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
+    }
+
+    private fun initFields(){
+        avatarView = findViewById(R.id.avatar)
+        fullNameView = findViewById(R.id.fullName)
+        friendsView = findViewById(R.id.listFriends)
+
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, friends)
+        friendsView.adapter = adapter
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -43,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 // User passed authorization
                 this@MainActivity.token = token;
 
-                Log.i("VkMobi", "Success")
+                Log.i(Common.appLogTag, "Login success")
 
                 VK.execute(VKUsersRequest(), object: VKApiCallback<List<VKUser>> {
                     override fun success(result: List<VKUser>) {
@@ -55,20 +65,36 @@ class MainActivity : AppCompatActivity() {
                             .load(user.photo)
                             .placeholder(R.drawable.warning)
                             .error(R.drawable.placeholder)
-                            .into(avatarView);
+                            .into(avatarView)
 
-                        Log.i("VkMobi", result[0].photo)
+                        VK.execute(VKFriendsRequest(), object: VKApiCallback<List<VKUser>> {
+                            override fun success(result: List<VKUser>) {
+                                for (friend in result) {
+                                    friends.add(friend.firstName)
+                                }
+                                adapter.notifyDataSetChanged()
+
+                                Log.i(Common.appLogTag, "Add friends")
+                            }
+
+                            override fun fail(error: VKApiExecutionException) {
+                                Log.i(Common.appLogTag, error.errorMsg.toString())
+                            }
+                        })
+
+                        Log.i(Common.appLogTag, result[0].photo)
                     }
                     override fun fail(error: VKApiExecutionException) {
-                        Log.i("VkMobi", error.errorMsg.toString())
+                        Log.i(Common.appLogTag, error.errorMsg.toString())
                     }
                 })
             }
 
             override fun onLoginFailed(errorCode: Int) {
-                Log.i("VkMobi", "Fail")
+                Log.i(Common.appLogTag, "Fail")
             }
         }
+
         if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -85,6 +111,22 @@ class VKUsersRequest: VKRequest<List<VKUser>> {
 
     override fun parse(r: JSONObject): List<VKUser> {
         val users = r.getJSONArray("response")
+        val result = ArrayList<VKUser>()
+        for (i in 0 until users.length()) {
+            result.add(VKUser.parse(users.getJSONObject(i)))
+        }
+        return result
+    }
+}
+
+class VKFriendsRequest: VKRequest<List<VKUser>> {
+    constructor(): super("friends.get") {
+        addParam("fields", "nickname")
+    }
+
+    override fun parse(r: JSONObject): List<VKUser> {
+        val obj = r.getJSONObject("response")
+        var users = obj.getJSONArray("items")
         val result = ArrayList<VKUser>()
         for (i in 0 until users.length()) {
             result.add(VKUser.parse(users.getJSONObject(i)))
