@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+.form {
+    width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.names{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input_field {
+    width: 430px;
+}
+
+.input{
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.label{
+    width: 70px;
+}
+
+.submit {
+    padding: 5px;
+    background-color: lightblue;
+}
+
+.names.input {
+    width: 240px;
+}
+
+.names .input .label {
+ width: 70px;
+}
+
+.names .input .input_field {
+    width: 170px;
+}
+
+
+
+
+
