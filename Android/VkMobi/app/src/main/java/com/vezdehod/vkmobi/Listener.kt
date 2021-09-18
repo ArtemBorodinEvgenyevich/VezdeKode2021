@@ -6,3 +6,7 @@ interface Listener{
     fun update(users: ArrayList<String>)
     fun update(user: User)
 }
+
+interface EventProvider{
+    fun addListener(listener: Listener)
+}
