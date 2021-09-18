@@ -14,20 +14,21 @@ import com.vk.api.sdk.auth.VKScope
 import com.vk.api.sdk.exceptions.VKApiExecutionException
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
-import android.graphics.drawable.Drawable
 import android.widget.*
-import com.squareup.picasso.Picasso
-import java.io.InputStream
-import java.net.URL
+import com.vezdehod.vkmobi.models.User
+import com.vezdehod.vkmobi.models.UserRequest
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Listener {
     private lateinit var token: VKAccessToken
     private lateinit var avatarView: ImageView
     private lateinit var fullNameView: TextView
     private lateinit var friendsView: ListView
+    private lateinit var counterView: TextView
     private lateinit var adapter: ArrayAdapter<String>
     private var friends: ArrayList<String> = ArrayList()
+
+    private var api: ApiWrap = ApiWrap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,47 +43,29 @@ class MainActivity : AppCompatActivity() {
         avatarView = findViewById(R.id.avatar)
         fullNameView = findViewById(R.id.fullName)
         friendsView = findViewById(R.id.listFriends)
+        counterView = findViewById(R.id.friendsCountView)
 
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, friends)
         friendsView.adapter = adapter
+
+        api.addListener(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val callback = object: VKAuthCallback {
             override fun onLogin(token: VKAccessToken) {
-                // User passed authorization
                 this@MainActivity.token = token;
 
                 Log.i(Common.appLogTag, "Login success")
 
-                VK.execute(VKUsersRequest(), object: VKApiCallback<List<VKUser>> {
-                    override fun success(result: List<VKUser>) {
-                        var user = result[0]
+                VK.execute(UserRequest(), object: VKApiCallback<List<User>> {
+                    override fun success(result: List<User>) {
+                        val user = result.first()
 
-                        fullNameView.text = user.firstName + " " + user.lastName
+                        fullNameView.text = getString(R.string.user_name, user.firstName, user.lastName)
+                        user.loadPhoto(this@MainActivity, avatarView)
 
-                        Picasso.with(this@MainActivity)
-                            .load(user.photo)
-                            .placeholder(R.drawable.warning)
-                            .error(R.drawable.placeholder)
-                            .into(avatarView)
-
-                        VK.execute(VKFriendsRequest(), object: VKApiCallback<List<VKUser>> {
-                            override fun success(result: List<VKUser>) {
-                                for (friend in result) {
-                                    friends.add(friend.firstName)
-                                }
-                                adapter.notifyDataSetChanged()
-
-                                Log.i(Common.appLogTag, "Add friends")
-                            }
-
-                            override fun fail(error: VKApiExecutionException) {
-                                Log.i(Common.appLogTag, error.errorMsg.toString())
-                            }
-                        })
-
-                        Log.i(Common.appLogTag, result[0].photo)
+                        api.loadUsers()
                     }
                     override fun fail(error: VKApiExecutionException) {
                         Log.i(Common.appLogTag, error.errorMsg.toString())
@@ -98,6 +81,13 @@ class MainActivity : AppCompatActivity() {
         if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun update(users: ArrayList<String>) {
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
+        friendsView.adapter = adapter
+        adapter.notifyDataSetChanged()
+        counterView.text = "Количество: ${users.size}"
     }
 }
 
