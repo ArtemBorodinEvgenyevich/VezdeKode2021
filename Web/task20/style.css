@@ -10,83 +10,74 @@
     align-items: center;
 }
 
-.lang-select-mobile {
+.form-lang-mob {
     display: none;
 }
 
-.lang-select-mobile .lang-mobile .radio-btn {
+.form-lang-mob .lang-choice .btn-radio {
     display: none;
 }
 
-.lang-select-mobile .lang-mobile .radio-btn:checked + .radio-label {
+.form-lang-mob .lang-choice .btn-radio:checked+.lbl-radio {
     color: black;
     background-color: #fff;
 }
 
-.lang-select-mobile .lang-mobile .radio-label {
+.form-lang-mob .lang-choice .lbl-radio {
     padding: 5px;
     color: whitesmoke;
-    background-color: dodgerblue;
+    background-color: blue;
 }
 
-.names {
+.name {
     width: 500px;
     display: flex;
     justify-content: space-between;
 }
 
-.names .input {
+.name .input-form {
     width: 49%;
 }
 
-.input {
+.input-form {
     display: flex;
     margin-bottom: 10px;
     width: 100%;
 }
 
-.label {
+.input-label {
     min-width: 80px;
 }
 
-.input_field {
+.input-field {
     width: 100%;
 }
 
-.submit {
+.submit-form {
     padding: 5px;
     background-color: lightblue;
 }
 
-@media (max-device-width: 900px) {
-    .lang-select-mobile {
+@media (max-width: 900px) {
+    .form-lang-mob {
         display: flex;
         width: 50%;
         justify-content: space-around;
     }
-
-    .lang-select {
+    .form-lang {
         display: none;
     }
-
     .form {
         width: 300px;
     }
-
-    .names {
+    .name {
         flex-direction: column;
         width: 100%;
     }
-
-    .names .input {
+    .name .input-form {
         width: 100%;
     }
-
-    .submit {
+    .submit-form {
         width: 100%;
     }
 }
-
-
-
-

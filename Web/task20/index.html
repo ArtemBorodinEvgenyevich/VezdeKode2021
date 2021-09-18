@@ -1,81 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>ВездеКод</title>
+    <title>com.command.lamers</title>
 </head>
+
 <body>
-    <form class="form">
-        <label>
-            <select class="lang-select">
-                <option>en</option>
-                <option>ru</option>
-                <option>ar</option>
-            </select>
-        </label>
+<form class="form">
+    <select class="form-lang">
+        <option>en</option>
+        <option>ru</option>
+        <option>ar</option>
+    </select>
 
-        <div class="lang-select-mobile">
-            <div class="lang-mobile">
-                <input class="radio-btn" type="radio" id="en" name="lang" checked>
-                <label class="radio-label" for="en">en</label>
-            </div>
-
-            <div class="lang-mobile">
-                <input class="radio-btn" class="radio" type="radio" id="ru" name="lang">
-                <label class="radio-label" for="ru">ru</label>
-            </div>
-
-            <div class="lang-mobile">
-                <input class="radio-btn" class="radio" type="radio" id="ar" name="lang">
-                <label class="radio-label" for="ar">ar</label>
-            </div>
+    <div class="form-lang-mob">
+        <div class="lang-choice">
+            <input class="btn-radio" type="radio" id="en" name="lang" checked>
+            <label class="lbl-radio" for="en">en</label>
         </div>
 
-        <h1 class="title">Form Title</h1>
-        <div class="names">
-            <div class="input">
-                <div class="label">first name*:</div>
-                <label>
-                    <input type="text" class="input_field"/>
-                </label>
-            </div>
-            <div class="input">
-                <div class="label">last name*:</div>
-                <label>
-                    <input type="text" class="input_field"/>
-                </label>
-            </div>
+        <div class="lang-choice">
+            <input class="btn-radio" class="radio" type="radio" id="ru" name="lang">
+            <label class="lbl-radio" for="ru">ru</label>
         </div>
-        <div class="input">
-            <div class="label">email*:</div>
-            <label>
-                <input type="email" class="input_field"/>
-            </label>
+
+        <div class="lang-choice">
+            <input class="btn-radio" class="radio" type="radio" id="ar" name="lang">
+            <label class="lbl-radio" for="ar">ar</label>
         </div>
-        <div class="input">
-            <div class="label">company:</div>
-            <label>
-                <input type="text" class="input_field"/>
-            </label>
+    </div>
+
+    <h1 class="title">Form Title</h1>
+    <div class="name">
+        <div class="input-form">
+            <div class="input-label">first name*:</div>
+            <input type="text" class="input-field"></input>
         </div>
-        <div class="input">
-            <div class="label">city*:</div>
-            <label>
-                <input type="text" class="input_field"/>
-            </label>
+        <div class="input-form">
+            <div class="input-label">last name*:</div>
+            <input type="text" class="input-field"></input>
         </div>
-        <div class="input">
-            <div class="label">message*:</div>
-            <label>
-                <textarea class="input_field"></textarea>
-            </label>
-        </div>
-        <div>
-            <label>
-                <input class="submit" type="submit" value="Send">
-            </label>
-        </div>
-    </form>
+    </div>
+    <div class="input-form">
+        <div class="input-label">email*:</div>
+        <input type="email" class="input-field"></input>
+    </div>
+    <div class="input-form">
+        <div class="input-label">company:</div>
+        <input type="text" class="input-field"></input>
+    </div>
+    <div class="input-form">
+        <div class="input-label">city*:</div>
+        <input type="text" class="input-field"></input>
+    </div>
+    <div class="input-form">
+        <div class="input-label">message*:</div>
+        <textarea type="text" class="input-field"></textarea>
+    </div>
+    <input class="submit-form" type="submit" value="Send">
+</form>
 </body>
+
 </html>
