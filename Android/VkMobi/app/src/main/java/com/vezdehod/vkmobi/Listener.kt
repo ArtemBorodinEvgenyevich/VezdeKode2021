@@ -1,5 +1,8 @@
 package com.vezdehod.vkmobi
 
+import com.vezdehod.vkmobi.models.User
+
 interface Listener{
     fun update(users: ArrayList<String>)
+    fun update(user: User)
 }

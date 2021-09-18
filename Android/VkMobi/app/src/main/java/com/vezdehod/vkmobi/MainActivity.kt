@@ -58,19 +58,8 @@ class MainActivity : AppCompatActivity(), Listener {
 
                 Log.i(Common.appLogTag, "Login success")
 
-                VK.execute(UserRequest(), object: VKApiCallback<List<User>> {
-                    override fun success(result: List<User>) {
-                        val user = result.first()
-
-                        fullNameView.text = getString(R.string.user_name, user.firstName, user.lastName)
-                        user.loadPhoto(this@MainActivity, avatarView)
-
-                        api.loadUsers()
-                    }
-                    override fun fail(error: VKApiExecutionException) {
-                        Log.i(Common.appLogTag, error.errorMsg.toString())
-                    }
-                })
+                api.loadUser()
+                api.loadFriends()
             }
 
             override fun onLoginFailed(errorCode: Int) {
@@ -89,10 +78,15 @@ class MainActivity : AppCompatActivity(), Listener {
         adapter.notifyDataSetChanged()
         counterView.text = "Количество: ${users.size}"
     }
+
+    override fun update(user: User) {
+        fullNameView.text = "${user.firstName} ${user.lastName}"
+        user.loadPhoto(this, avatarView)
+    }
 }
 
-class VKUsersRequest: VKRequest<List<VKUser>> {
-    constructor(uids: IntArray = intArrayOf()): super("users.get") {
+class VKUsersRequest(uids: IntArray = intArrayOf()) : VKRequest<List<VKUser>>("users.get") {
+    init {
         if (uids.isNotEmpty()) {
             addParam("user_ids", uids.joinToString(","))
         }
