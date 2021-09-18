@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
-import android.widget.ImageView
 import android.widget.TextView
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
@@ -15,8 +14,13 @@ import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
 import com.vk.api.sdk.exceptions.VKApiExecutionException
 import com.vk.api.sdk.requests.VKRequest
-import com.vk.api.sdk.utils.VKUtils
 import org.json.JSONObject
+import android.graphics.drawable.Drawable
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
+import java.io.InputStream
+import java.net.URL
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var token: VKAccessToken
@@ -47,7 +51,13 @@ class MainActivity : AppCompatActivity() {
 
                         fullNameView.text = user.firstName + " " + user.lastName
 
-                        Log.i("VkMobi", result[0].firstName)
+                        Picasso.with(this@MainActivity)
+                            .load(user.photo)
+                            .placeholder(R.drawable.warning)
+                            .error(R.drawable.placeholder)
+                            .into(avatarView);
+
+                        Log.i("VkMobi", result[0].photo)
                     }
                     override fun fail(error: VKApiExecutionException) {
                         Log.i("VkMobi", error.errorMsg.toString())
