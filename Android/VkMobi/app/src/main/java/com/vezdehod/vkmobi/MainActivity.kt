@@ -17,6 +17,8 @@ import org.json.JSONObject
 import android.widget.*
 import com.vezdehod.vkmobi.models.User
 import com.vezdehod.vkmobi.models.UserRequest
+import com.vk.api.sdk.utils.VKUtils
+import com.vk.api.sdk.utils.VKUtils.getCertificateFingerprint
 
 
 class MainActivity : AppCompatActivity(), Listener {
