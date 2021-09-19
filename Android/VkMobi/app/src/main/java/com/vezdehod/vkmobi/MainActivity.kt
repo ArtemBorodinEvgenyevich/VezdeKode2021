@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
+import android.view.View
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
 import com.vk.api.sdk.auth.VKAccessToken
@@ -20,6 +21,13 @@ import com.vezdehod.vkmobi.models.User
 import com.vezdehod.vkmobi.models.UserRequest
 import com.vk.api.sdk.utils.VKUtils
 import com.vk.api.sdk.utils.VKUtils.getCertificateFingerprint
+import android.widget.TextView
+import android.graphics.Bitmap
+
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import androidx.core.graphics.drawable.toBitmap
 
 
 class MainActivity : AppCompatActivity(), Listener {
@@ -29,6 +37,7 @@ class MainActivity : AppCompatActivity(), Listener {
     private lateinit var friendsView: ListView
     private lateinit var counterView: TextView
     private lateinit var adapter: FriendsAdapter
+    private  var isLoggedIn: Boolean = false
     private var friends: ArrayList<User> = ArrayList()
 
     private var api: ApiWrap = ApiWrap()
@@ -37,11 +46,42 @@ class MainActivity : AppCompatActivity(), Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Log.i(Common.appLogTag, "OnCreate")
         initFields()
 
         supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.vk)))
 
-        VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
+        if(savedInstanceState?.containsKey("isLoggedIn") == true)
+            isLoggedIn = savedInstanceState.getBoolean("isLoggedIn")
+
+        if(!isLoggedIn) {
+            VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
+            isLoggedIn = true
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        Log.i(Common.appLogTag, "OnSavedInstance")
+
+        outState.putString("name", fullNameView.text.toString())
+        outState.putSerializable("friends", friends)
+        outState.putParcelable("photo", avatarView.drawable?.toBitmap())
+        outState.putString("count", counterView.text.toString())
+        outState.putBoolean("isLoggedIn", isLoggedIn)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        
+        Log.i(Common.appLogTag, "OnRestoreInstance")
+
+        fullNameView.text = savedInstanceState.getString("name")
+        friends = savedInstanceState.getSerializable("friends") as ArrayList<User>
+        avatarView.setImageBitmap(savedInstanceState.getParcelable<Bitmap>("photo"))
+        counterView.text = savedInstanceState.getString("count")
+        isLoggedIn = savedInstanceState.getBoolean("isLoggedIn")
     }
 
     private fun initFields(){

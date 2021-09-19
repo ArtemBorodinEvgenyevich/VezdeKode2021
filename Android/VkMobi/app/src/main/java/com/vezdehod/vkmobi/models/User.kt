@@ -1,25 +1,21 @@
 package com.vezdehod.vkmobi.models
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import com.vezdehod.vkmobi.R
 import org.json.JSONObject
 import java.lang.Exception
-import java.net.ContentHandler
-import java.security.AccessControlContext
 
-class User(var id: Long = 0, val firstName: String = "", val lastName: String = "", val photoUrl: String = ""){
-    companion object{
-        fun parse(json: JSONObject): User {
-            return User(
-                id = json.optLong("id", 0),
-                firstName = json.optString("first_name", ""),
-                lastName = json.optString("last_name", ""),
-                photoUrl = json.optString("photo_200", "")
-            )
-        }
-    }
+class User(var id: Long = 0, val firstName: String? = "", val lastName: String? = "", val photoUrl: String? = ""){
+    constructor(parcel: Parcel) : this(
+        id = parcel.readLong(),
+        firstName = parcel.readString(),
+        lastName = parcel.readString(),
+        photoUrl = parcel.readString()
+    ) {}
 
     fun loadPhoto(context: Context, view: ImageView){
         try {
@@ -30,5 +26,17 @@ class User(var id: Long = 0, val firstName: String = "", val lastName: String = 
                 .into(view)
         }
         catch (e: Exception){}
+    }
+
+    companion object  {
+
+        fun parse(json: JSONObject): User {
+            return User(
+                id = json.optLong("id", 0),
+                firstName = json.optString("first_name", ""),
+                lastName = json.optString("last_name", ""),
+                photoUrl = json.optString("photo_200", "")
+            )
+        }
     }
 }
