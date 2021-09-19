@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<form class="form">
+<form class="user-form" action="#" method="post" id="root-form" novalidate>
     <select class="form-lang">
         <option>en</option>
         <option>ru</option>
@@ -37,32 +37,44 @@
     <div class="name">
         <div class="input-form">
             <div class="input-label">first name*:</div>
-            <input type="text" class="input-field"></input>
+            <input type="text" class="input-field" minlength="5"
+                   id="id_first_name" required pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+                   placeholder="Thomas">
         </div>
         <div class="input-form">
             <div class="input-label">last name*:</div>
-            <input type="text" class="input-field"></input>
+            <input type="text" class="input-field" minlength="5"
+                   id="id_last_name" required pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+                   placeholder="Anderson">
         </div>
     </div>
     <div class="input-form">
         <div class="input-label">email*:</div>
-        <input type="email" required pattern="^\[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-               class="input-field">
+        <input type="email" required pattern="^[\w]{1,}[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+               class="input-field" id="id_email" minlength="5"
+               placeholder="wakeup@neo.mtx">
     </div>
     <div class="input-form">
         <div class="input-label">company:</div>
-        <input type="text" class="input-field"></input>
+        <input type="text" class="input-field"
+               id="id_company" pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+               placeholder="MetaCortex software">
     </div>
     <div class="input-form">
         <div class="input-label">city*:</div>
-        <input type="text" class="input-field"></input>
+        <input type="text" class="input-field" minlength="5"
+               id="id_city" required pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+               placeholder="Chicago">
     </div>
     <div class="input-form">
         <div class="input-label">message*:</div>
-        <textarea type="text" class="input-field"></textarea>
+        <textarea class="input-field"
+                  id="id_message" minlength="5"
+                  placeholder="Enter the matrix"></textarea>
     </div>
-    <input class="submit-form" type="submit" value="Send">
+    <button class="submit-form" id="id_btn-submit">Submit</button>
 </form>
+<script type="text/javascript" src="utils.js"></script>
 </body>
 
 </html>
