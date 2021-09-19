@@ -1,5 +1,9 @@
 # VezdeKode2021
+
 VezdeCode VK coding fest repo
+
+# Android
+Задача Android: 10 баллов
 
 # Web
 You can find source code in web folder
