@@ -9,4 +9,4 @@ APK: https://github.com/ArtemBorodinEvgenyevich/VezdeKode2021/tree/main/Android/
 
 # Web
 You can find source code in web folder
-Also check out hosting app at [vezde-kode2021.vercel.app](vezde-kode2021.vercel.app)
+Also check out hosting app at [vezde-kode2021.vercel.app](https://vezde-kode2021.vercel.app/)
