@@ -1,6 +1,7 @@
 package com.vezdehod.vkmobi
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity(), Listener {
         setContentView(R.layout.activity_main)
 
         initFields()
+
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.vk)))
 
         VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
     }
