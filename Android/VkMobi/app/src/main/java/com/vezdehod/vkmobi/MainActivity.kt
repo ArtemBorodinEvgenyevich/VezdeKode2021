@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity(), Listener {
     private lateinit var fullNameView: TextView
     private lateinit var friendsView: ListView
     private lateinit var counterView: TextView
-    private lateinit var adapter: ArrayAdapter<String>
-    private var friends: ArrayList<String> = ArrayList()
+    private lateinit var adapter: FriendsAdapter
+    private var friends: ArrayList<User> = ArrayList()
 
     private var api: ApiWrap = ApiWrap()
 
@@ -50,7 +50,8 @@ class MainActivity : AppCompatActivity(), Listener {
         friendsView = findViewById(R.id.listFriends)
         counterView = findViewById(R.id.friendsCountView)
 
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, friends)
+        //adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, friends)
+        adapter = FriendsAdapter(this, friends)
         friendsView.adapter = adapter
 
         api.addListener(this)
@@ -77,8 +78,9 @@ class MainActivity : AppCompatActivity(), Listener {
         }
     }
 
-    override fun update(users: ArrayList<String>) {
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
+    override fun update(users: ArrayList<User>) {
+        //adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
+        adapter = FriendsAdapter(this, users)
         friendsView.adapter = adapter
         adapter.notifyDataSetChanged()
         counterView.text = "Количество: ${users.size}"

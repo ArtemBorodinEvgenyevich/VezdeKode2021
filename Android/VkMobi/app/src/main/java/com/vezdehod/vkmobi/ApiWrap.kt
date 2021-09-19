@@ -14,7 +14,7 @@ class ApiWrap: Listener {
     }
 
     fun loadFriends(){
-        val users = arrayListOf<String>()
+        val users = arrayListOf<User>()
         val callback = FriendsCallback(users)
         callback.addListener(this)
         VK.execute(FriendsRequest(), callback)
@@ -26,10 +26,17 @@ class ApiWrap: Listener {
         VK.execute(UserRequest(), callback)
     }
 
+    /*
     override fun update(users: ArrayList<String>) {
         for(listener in listeners){
             listener.update(users)
         }
+    }
+     */
+
+    override fun update(users: ArrayList<User>) {
+        for(listener in listeners)
+            listener.update(users)
     }
 
     override fun update(user: User) {

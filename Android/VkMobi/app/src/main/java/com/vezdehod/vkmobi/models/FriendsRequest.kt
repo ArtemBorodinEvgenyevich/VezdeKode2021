@@ -16,7 +16,7 @@ class FriendsRequest : VKRequest<List<User>>(Methods.GET_FRIENDS.method) {
 
     override fun parse(r: JSONObject): List<User> {
         val obj = r.getJSONObject(response)
-        var users = obj.getJSONArray(items)
+        val users = obj.getJSONArray(items)
         val result = ArrayList<User>()
         for (i in 0 until users.length()) {
             result.add(User.parse(users.getJSONObject(i)))
