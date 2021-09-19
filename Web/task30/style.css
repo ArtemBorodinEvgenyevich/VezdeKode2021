@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+}
+
+.user-form {
+    width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-lang-mob {
+    display: none;
+}
+
+.form-lang-mob .lang-choice .btn-radio {
+    display: none;
+}
+
+.form-lang-mob .lang-choice .btn-radio:checked+.lbl-radio {
+    color: black;
+    background-color: #fff;
+}
+
+.form-lang-mob .lang-choice .lbl-radio {
+    padding: 5px;
+    color: whitesmoke;
+    background-color: dodgerblue;
+}
+
+.name {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name .input-form {
+    width: 49%;
+}
+
+.input-form {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.input-label {
+    min-width: 80px;
+}
+
+.input-field {
+    width: 100%;
+    border: 2px solid dodgerblue;
+}
+
+.input-field:invalid {
+    border: 1px solid #ff1e8a;
+}
+
+.input-field:focus:invalid {
+    border: 1px solid dodgerblue;
+}
+
+.input-field:valid {
+    border: 1px solid dodgerblue;
+}
+
+.submit-form {
+    padding: 5px;
+    color: whitesmoke;
+    background-color: #1e90ff;
+    border: 1px solid transparent;
+}
+
+
+
+
+@media (max-width: 900px) {
+    .form-lang-mob {
+        display: flex;
+        width: 50%;
+        justify-content: space-around;
+    }
+    .form-lang {
+        display: none;
+    }
+    .user-form {
+        width: 300px;
+    }
+    .name {
+        flex-direction: column;
+        width: 100%;
+    }
+    .name .input-form {
+        width: 100%;
+    }
+    .submit-form {
+        width: 100%;
+    }
+}

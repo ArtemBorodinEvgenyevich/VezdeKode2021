@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>com.command.lamers</title>
+</head>
+
+<body>
+<form class="user-form" action="#" method="post" id="root-form" novalidate>
+    <select class="form-lang">
+        <option>en</option>
+        <option>ru</option>
+        <option>ar</option>
+    </select>
+
+    <div class="form-lang-mob">
+        <div class="lang-choice">
+            <input class="btn-radio" type="radio" id="en" name="lang" checked>
+            <label class="lbl-radio" for="en">en</label>
+        </div>
+
+        <div class="lang-choice">
+            <input class="btn-radio" class="radio" type="radio" id="ru" name="lang">
+            <label class="lbl-radio" for="ru">ru</label>
+        </div>
+
+        <div class="lang-choice">
+            <input class="btn-radio" class="radio" type="radio" id="ar" name="lang">
+            <label class="lbl-radio" for="ar">ar</label>
+        </div>
+    </div>
+
+    <h1 class="title">Form Title</h1>
+    <div class="name">
+        <div class="input-form">
+            <div class="input-label">first name*:</div>
+            <input type="text" class="input-field" minlength="5"
+                   id="id_first_name" required pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+                   placeholder="Thomas">
+        </div>
+        <div class="input-form">
+            <div class="input-label">last name*:</div>
+            <input type="text" class="input-field" minlength="5"
+                   id="id_last_name" required pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+                   placeholder="Anderson">
+        </div>
+    </div>
+    <div class="input-form">
+        <div class="input-label">email*:</div>
+        <input type="email" required pattern="^[\w]{1,}[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+               class="input-field" id="id_email" minlength="5"
+               placeholder="wakeup@neo.mtx">
+    </div>
+    <div class="input-form">
+        <div class="input-label">company:</div>
+        <input type="text" class="input-field"
+               id="id_company" pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+               placeholder="MetaCortex software">
+    </div>
+    <div class="input-form">
+        <div class="input-label">city*:</div>
+        <input type="text" class="input-field" minlength="5"
+               id="id_city" required pattern="(?:[^0-9^o^O^о^О])\1{2,}"
+               placeholder="Chicago">
+    </div>
+    <div class="input-form">
+        <div class="input-label">message*:</div>
+        <textarea class="input-field"
+                  id="id_message" minlength="5"
+                  placeholder="Enter the matrix"></textarea>
+    </div>
+    <button class="submit-form" id="id_btn-submit">Submit</button>
+</form>
+<script type="text/javascript" src="utils.js"></script>
+</body>
+
+</html>

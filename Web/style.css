@@ -1,0 +1,15 @@
+.wrapper {
+    width: 200px;
+    margin: auto;
+}
+
+.task{
+    display: block;
+    padding: 10px;
+    color: whitesmoke;
+    background-color: dodgerblue;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
