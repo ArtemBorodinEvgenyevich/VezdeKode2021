@@ -4,6 +4,7 @@ VezdeCode VK coding fest repo
 
 # Android
 Задача Android: 10 баллов
+
 APK: https://github.com/ArtemBorodinEvgenyevich/VezdeKode2021/tree/main/Android/VkMobi/app/release
 
 # Web
