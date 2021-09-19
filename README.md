@@ -1,2 +1,2 @@
 # VezdeKode2021
-VezdeCode VK coding fest repo
+Задача Android: 10 баллов
