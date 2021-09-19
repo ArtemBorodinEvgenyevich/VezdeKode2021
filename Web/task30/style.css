@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-.form {
+.user-form {
     width: 500px;
     margin: auto;
     display: flex;
@@ -58,6 +58,10 @@
     border: 1px solid #ff1e8a;
 }
 
+.input-field:focus:invalid {
+    border: 1px solid dodgerblue;
+}
+
 .input-field:valid {
     border: 1px solid dodgerblue;
 }
@@ -81,7 +85,7 @@
     .form-lang {
         display: none;
     }
-    .form {
+    .user-form {
         width: 300px;
     }
     .name {
